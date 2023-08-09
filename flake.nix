@@ -1,11 +1,40 @@
+
 {
-  description = "A very basic flake";
 
-  outputs = { self, nixpkgs }: {
+  # Nixpkgs / NixOS version to use.
+  inputs.nixpkgs.url = "nixpkgs/nixos-unstable";
 
-    packages.x86_64-linux.hello = nixpkgs.legacyPackages.x86_64-linux.hello;
+  outputs = { self, nixpkgs }:
+    let
 
-    packages.x86_64-linux.default = self.packages.x86_64-linux.hello;
+      # System types to support.
+      supportedSystems =
+        [ "x86_64-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin" ];
 
-  };
+      # Helper function to generate an attrset '{ x86_64-linux = f "x86_64-linux"; ... }'.
+      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+
+      # Nixpkgs instantiated for supported system types.
+      nixpkgsFor = forAllSystems (system:
+        import nixpkgs {
+          inherit system;
+          overlays = [ self.overlays.default ];
+        });
+    in
+    {
+
+      # A Nixpkgs overlay.
+      overlays.default = final: prev: {
+          pipeline-config = with final; writeText "pipeline" ''
+          THE PIPELINE CONFIG
+          '';
+      };
+
+      # Package
+      packages = forAllSystems (system: {
+        inherit (nixpkgsFor.${system}) pipeline-config;
+        default = self.packages.${system}.pipeline-config;
+      });
+
+    };
 }
