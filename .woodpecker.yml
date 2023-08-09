@@ -2,6 +2,6 @@ steps:
   build:
     image: bash
     commands:
-      echo "HELLO WORLD"
-      nix run 'nixpkgs#hello'
+      - echo "HELLO WORLD"
+      - nix run 'nixpkgs#hello'
 
