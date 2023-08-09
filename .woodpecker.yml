@@ -3,3 +3,5 @@ steps:
     image: bash
     commands:
       echo "HELLO WORLD"
+      nix run 'nixpkgs#hello'
+
