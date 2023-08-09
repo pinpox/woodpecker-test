@@ -1,0 +1,5 @@
+steps:
+  build:
+    image: bash
+    commands:
+      echo "HELLO WORLD"
