@@ -3,5 +3,8 @@ steps:
     image: bash
     commands:
       - echo "HELLO WORLD"
+      - nix --version
+      - whereis nix
+      - which nix
       - nix run 'nixpkgs#hello'
 
