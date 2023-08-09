@@ -4,6 +4,7 @@ steps:
     commands:
       - echo "HELLO WORLD"
       - nix --version
+      - nix doctor
       - whereis nix
       - which nix
       - nix run 'nixpkgs#hello'
