@@ -12,5 +12,7 @@ pipeline:
     - whereis nix
     - which nix
     - nix run 'nixpkgs#hello'
+    - nix flake show
+    - nix run
 
 
