@@ -1,4 +1,3 @@
-
 {
 
   # Nixpkgs / NixOS version to use.
@@ -25,15 +24,14 @@
 
       # A Nixpkgs overlay.
       overlays.default = final: prev: {
-          pipeline-config = with final; writeText "pipeline" ''
+        woodpecker-pipeline = with final; writeText "pipeline" ''
           THE PIPELINE CONFIG
-          '';
+        '';
       };
 
       # Package
       packages = forAllSystems (system: {
-        inherit (nixpkgsFor.${system}) pipeline-config;
-        default = self.packages.${system}.pipeline-config;
+        inherit (nixpkgsFor.${system}) woodpecker-pipeline;
       });
 
     };
