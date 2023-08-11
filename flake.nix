@@ -28,8 +28,19 @@
           {
             configs = [
               {
-                name = "test";
-                data = "test";
+                name = "flake-pipeline";
+                data = ''
+                  labels:
+                    backend: local
+
+                  pipeline:
+                  - name: Test commands
+                    image: bash
+                    commands:
+                      - echo "HELLO WORLD"
+                      - echo $HOME
+                      - pwd
+                '';
               }
             ];
           });
