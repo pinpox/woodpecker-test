@@ -14,8 +14,10 @@ pipeline:
     - whereis nix
     - which nix
     - nix run 'nixpkgs#hello'
-    - ls $HOME
-    - ls $HOME/.cache
+    - ls -la $HOME
+    - ls -la $HOME/.cache
+    - ls -la
+    - ls -la .cache
     - nix flake show
     - nix run
 
