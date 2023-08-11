@@ -32,7 +32,7 @@
           - name: Test commands
             image: bash
             commands:
-              - echo "HELLO WORLD"
+              - echo "HELLO WORLD2"
           
         '';
       };
