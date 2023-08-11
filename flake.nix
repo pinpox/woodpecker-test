@@ -29,11 +29,19 @@
             backend: local
           
           pipeline:
-            - name: Test commands
-              image: bash
-              commands:
-                - echo "HELLO WORLD2"
-            
+          - name: Test commands
+            image: bash
+            commands:
+              - echo "HELLO WORLD"
+              - nix --version
+              - nix doctor
+              - nix store ping  
+              - whereis nix
+              - which nix
+              - nix run 'nixpkgs#hello'
+              - nix flake show
+              - nix run
+     
         '';
       };
 
