@@ -24,14 +24,15 @@
 
       # A Nixpkgs overlay.
       overlays.default = final: prev: {
-        woodpecker-pipeline = with final; writeText builtins.toJSON {
-          configs = [
-            {
-              name = "test";
-              data = "test";
-            }
-          ];
-        };
+        woodpecker-pipeline = with final; writeText "pipeline" (builtins.toJSON
+          {
+            configs = [
+              {
+                name = "test";
+                data = "test";
+              }
+            ];
+          });
       };
 
       # Package
