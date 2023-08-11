@@ -6,6 +6,8 @@ pipeline:
   image: bash
   commands:
     - echo "HELLO WORLD"
+    - echo $HOME
+    - pwd
     - nix --version
     - nix doctor
     - nix store ping  
