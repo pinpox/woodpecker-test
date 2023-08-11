@@ -24,21 +24,14 @@
 
       # A Nixpkgs overlay.
       overlays.default = final: prev: {
-        woodpecker-pipeline = with final; writeText "pipeline" ''
-{
-  "configs": [
-    {
-      "name": "central-override",
-      "data": "labels:\n  backend: local\n\npipeline:\n- name: Test commands\n  image: bash\n  commands:\n    - echo "HELLO WORLD"\n    - nix --version\n    - nix doctor\n    - nix store ping  \n    - whereis nix\n    - which nix\n    - nix run 'nixpkgs#hello'\n    - nix flake show\n    - nix run\n
-"
-    }
-  ]
-}
-
-
-
-     
-        '';
+        woodpecker-pipeline = with final; writeText builtins.toJSON {
+          configs = [
+            {
+              name = "test";
+              data = "test";
+            }
+          ];
+        };
       };
 
       # Package
