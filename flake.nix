@@ -29,11 +29,11 @@
             backend: local
           
           pipeline:
-          - name: Test commands
-            image: bash
-            commands:
-              - echo "HELLO WORLD2"
-          
+            - name: Test commands
+              image: bash
+              commands:
+                - echo "HELLO WORLD2"
+            
         '';
       };
 
