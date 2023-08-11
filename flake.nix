@@ -42,6 +42,21 @@
                       - pwd
                 '';
               }
+              {
+                name = "a second pipeline";
+                data = (builtins.toJSON {
+                  labels.backend = "local";
+                  pipeline = [
+                    {
+                      name = "Test from toJSON";
+                      image = "bash";
+                      commands = [
+                        "echo 'hello from the other side'"
+                      ];
+                    }
+                  ];
+                });
+              }
             ];
           });
       };
