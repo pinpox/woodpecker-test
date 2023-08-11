@@ -5,6 +5,7 @@ pipeline:
 - name: Test commands
   image: bash
   commands:
+    - echo $RUNTIME_DIRECTORY  
     - echo "HELLO WORLD"
     - echo $HOME
     - pwd
