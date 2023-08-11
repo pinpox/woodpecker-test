@@ -25,7 +25,15 @@
       # A Nixpkgs overlay.
       overlays.default = final: prev: {
         woodpecker-pipeline = with final; writeText "pipeline" ''
-          THE PIPELINE CONFIG
+          labels:
+            backend: local
+          
+          pipeline:
+          - name: Test commands
+            image: bash
+            commands:
+              - echo "HELLO WORLD"
+          
         '';
       };
 
