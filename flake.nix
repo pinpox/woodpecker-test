@@ -28,11 +28,8 @@
           {
             configs = [
               {
-                name = "flake-pipeline";
+                name = "flake-pipeline2";
                 data = ''
-                  when:
-                    branch: main
-                    event: push
                   labels:
                     backend: local
 
