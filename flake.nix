@@ -51,7 +51,7 @@
                   labels.backend = "local";
                   pipeline = [
                     {
-                      name = "Test from toJSON";
+                      name = "Test from toJSON PR3";
                       image = "bash";
                       commands = [
                         "echo 'hello from the other side'"
