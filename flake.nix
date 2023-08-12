@@ -30,6 +30,9 @@
               {
                 name = "flake-pipeline";
                 data = ''
+                  when:
+                    branch: main
+                    event: push
                   labels:
                     backend: local
 
