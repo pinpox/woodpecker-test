@@ -1,1 +1,8 @@
-{"labels":{"backend":"local"},"platform":"linux/arm64","steps":{"build":{"commands":["echo \"This is the build step\""],"image":"bash"}}}
+labels:
+  backend: local
+platform: linux/arm64
+steps:
+  build:
+    image: bash
+    commands:
+    - echo "This is the build step"
