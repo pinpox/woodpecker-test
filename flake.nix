@@ -56,11 +56,23 @@
                 name = "Docker pipeline";
                 data = (builtins.toJSON {
                   labels.backend = "docker";
-
                   platform = "linux/arm64";
-
                   steps.build = {
                     image = "debian";
+                    commands = [
+                      ''echo "This is the build step"''
+                    ];
+                  };
+                });
+              }
+
+              {
+                name = "Exec pipeline";
+                data = (builtins.toJSON {
+                  labels.backend = "local";
+                  platform = "linux/arm64";
+                  steps.build = {
+                    image = "bash";
                     commands = [
                       ''echo "This is the build step"''
                     ];
