@@ -53,6 +53,37 @@
                 });
               }
 
+              {
+                name = "flake-pipeline";
+                data = ''
+                  {
+                    "labels": {
+                      "backend": "local"
+                    },
+                    "pipeline": [
+                      {
+                        "commands": [
+                          "attic login lounge-rocks https://attic.lounge.rocks $ATTIC_KEY --set-default"
+                        ],
+                        "image": "bash",
+                        "name": "Setup Attic",
+                        "secrets": [
+                          "attic_key"
+                        ]
+                      },
+                      {
+                        "commands": [
+                          "nix build 'nixpkgs#hello'",
+                          "attic push lounge-rocks:lounge-rocks result"
+                        ],
+                        "image": "bash",
+                        "name": "Build and push hello-world"
+                      }
+                    ]
+                  }
+                '';
+              }
+
               # {
               #   name = "flake-pipeline";
               #   data = ''
