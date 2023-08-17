@@ -27,39 +27,65 @@
         woodpecker-pipeline = with final; writeText "pipeline" (builtins.toJSON
           {
             configs = [
-              {
-                name = "flake-pipeline";
-                data = ''
-                  when:
-                    branch: main
-                    event: push
-                  labels:
-                    backend: local
 
-                  pipeline:
-                  - name: Test commands
-                    image: bash
-                    commands:
-                      - echo "HELLO WORLD"
-                      - echo $HOME
-                      - pwd
-                '';
-              }
               {
-                name = "a second pipeline";
+                name = "Build and push hello-world";
                 data = (builtins.toJSON {
                   labels.backend = "local";
                   pipeline = [
                     {
-                      name = "Test from toJSON";
+                      name = "Setup Attic";
                       image = "bash";
                       commands = [
-                        "echo 'hello from the other side'"
+                        "attic login lounge-rocks https://attic.lounge.rocks $ATTIC_KEY --set-default"
+                      ];
+                      secrets = [ "attic_key" ];
+                    }
+                    {
+                      name = "Build and push hello-world";
+                      image = "bash";
+                      commands = [
+                        "nix build 'nixpkgs#hello'"
+                        "attic push lounge-rocks:MayNiklas-nixos result"
                       ];
                     }
                   ];
                 });
               }
+
+              # {
+              #   name = "flake-pipeline";
+              #   data = ''
+              #     when:
+              #       branch: main
+              #       event: push
+              #     labels:
+              #       backend: local
+
+              #     pipeline:
+              #     - name: Test commands
+              #       image: bash
+              #       commands:
+              #         - echo "HELLO WORLD"
+              #         - echo $HOME
+              #         - pwd
+              #   '';
+              # }
+              # {
+              #   name = "a second pipeline";
+              #   data = (builtins.toJSON {
+              #     labels.backend = "local";
+              #     pipeline = [
+              #       {
+              #         name = "Test from toJSON";
+              #         image = "bash";
+              #         commands = [
+              #           "echo 'hello from the other side'"
+              #         ];
+              #       }
+              #     ];
+              #   });
+              # }
             ];
           });
       };
