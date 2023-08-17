@@ -52,9 +52,23 @@
                   ];
                 });
               }
-
               {
-                name = "flake-pipeline";
+                name = "Docker pipeline";
+                data = (builtins.toJSON {
+                  labels.backend = "docker";
+
+                  platform = "linux/arm64";
+
+                  steps.build = {
+                    image = "debian";
+                    commands = [
+                      ''echo "This is the build step"''
+                    ];
+                  };
+                });
+              }
+              {
+                name = "Pipeline from tring";
                 data = ''
                   {
                     "labels": {
@@ -122,9 +136,10 @@
       };
 
       # Package
-      packages = forAllSystems (system: {
-        inherit (nixpkgsFor.${system}) woodpecker-pipeline;
-      });
+      packages = forAllSystems
+        (system: {
+          inherit (nixpkgsFor.${system}) woodpecker-pipeline;
+        });
 
     };
 }
