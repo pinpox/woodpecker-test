@@ -46,7 +46,7 @@
                       image = "bash";
                       commands = [
                         "nix build 'nixpkgs#hello'"
-                        "attic push lounge-rocks:MayNiklas-nixos result"
+                        "attic push lounge-rocks:lounge-rocks result"
                       ];
                     }
                   ];
