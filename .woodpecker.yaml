@@ -1,8 +1,10 @@
 labels:
   backend: local
-platform: linux/arm64
-steps:
-  build:
+
+platform: "linux/arm64"
+
+pipeline:
+  - name: echo stuff
     image: bash
     commands:
-    - echo "This is the build step"
+      - echo "hello world"
