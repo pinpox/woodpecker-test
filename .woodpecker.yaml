@@ -4,26 +4,8 @@ labels:
 platform: "linux/arm64"
 
 pipeline:
-  - name: setup attic
+  - name: Print test
     image: bash
     commands:
-      - attic login lounge-rocks https://attic.lounge.rocks $ATTIC_KEY --set-default
-    secrets: [attic_key]
+      - echo 'test'
 
-  - name: build pi4b
-    image: bash
-    commands:
-      - nix build '.#nixosConfigurations.pi4b.config.system.build.toplevel'
-      - attic push lounge-rocks:MayNiklas-nixos result
-
-  - name: build bellmann
-    image: bash
-    commands:
-      - nix build '.#nixosConfigurations.bellmann.config.system.build.toplevel'
-      - attic push lounge-rocks:MayNiklas-nixos result
-
-  - name: build simone
-    image: bash
-    commands:
-      - nix build '.#nixosConfigurations.simone.config.system.build.toplevel'
-      - attic push lounge-rocks:MayNiklas-nixos result
