@@ -37,7 +37,7 @@
 #                       name = "Setup Attic";
 #                       image = "bash";
 #                       commands = [
-#                         "attic login nix-cache https://attic.lounge.rocks $ATTIC_KEY --set-default"
+#                         "attic login nix-cache https://cache.lounge.rocks $ATTIC_KEY --set-default"
 #                       ];
 #                       secrets = [ "attic_key" ];
 #                     }
@@ -88,7 +88,7 @@
                     "pipeline": [
                       {
                         "commands": [
-                          "attic login lounge-rocks https://attic.lounge.rocks $ATTIC_KEY --set-default"
+                          "attic login lounge-rocks https://cache.lounge.rocks $ATTIC_KEY --set-default"
                         ],
                         "image": "bash",
                         "name": "Setup Attic",
