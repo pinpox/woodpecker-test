@@ -28,58 +28,64 @@
           {
             configs = [
 
-#               {
-#                 name = "Build and push hello-world";
-#                 data = (builtins.toJSON {
-#                   labels.backend = "local";
-#                   pipeline = [
-#                     {
-#                       name = "Setup Attic";
-#                       image = "bash";
-#                       commands = [
-#                         "attic login nix-cache https://cache.lounge.rocks $ATTIC_KEY --set-default"
-#                       ];
-#                       secrets = [ "attic_key" ];
-#                     }
-#                     {
-#                       name = "Build and push hello-world";
-#                       image = "bash";
-#                       commands = [
-#                         "nix build 'nixpkgs#hello'"
-#                         "attic push lounge-rocks:nix-cache result"
-#                       ];
-#                     }
-#                   ];
-#                 });
-#               }
-#               {
-#                 name = "Docker pipeline";
-#                 data = (builtins.toJSON {
-#                   labels.backend = "docker";
-#                   platform = "linux/arm64";
-#                   steps.build = {
-#                     image = "debian";
-#                     commands = [
-#                       ''echo "This is the build step"''
-#                     ];
-#                   };
-#                 });
-#               }
-#               {
-#                 name = "Exec pipeline";
-#                 data = (builtins.toJSON {
-#                   labels.backend = "local";
-#                   platform = "linux/arm64";
-#                   steps.build = {
-#                     image = "bash";
-#                     commands = [
-#                       ''echo "This is the build step"''
-#                     ];
-#                   };
-#                 });
-#               }
               {
-                name = "Pipeline from tring";
+                name = "Build and push hello-world";
+                data = (builtins.toJSON {
+                  labels.backend = "local";
+                  pipeline = [
+                    {
+                      name = "Setup Attic";
+                      image = "bash";
+                      commands = [
+                        "attic login lounge-rocks https://cache.lounge.rocks $ATTIC_KEY --set-default"
+                      ];
+                      secrets = [ "attic_key" ];
+                    }
+                    {
+                      name = "Build hello-world";
+                      image = "bash";
+                      commands = [
+                        "nix build 'nixpkgs#hello'"
+                      ];
+                    }
+                    {
+                      name = "Push to Cache";
+                      image = "bash";
+                      commands = [
+                        "attic push lounge-rocks:nix-cache result"
+                      ];
+                    }
+                  ];
+                });
+              }
+              # {
+              #   name = "Docker pipeline";
+              #   data = (builtins.toJSON {
+              #     labels.backend = "docker";
+              #     platform = "linux/arm64";
+              #     steps.build = {
+              #       image = "debian";
+              #       commands = [
+              #         ''echo "This is the build step"''
+              #       ];
+              #     };
+              #   });
+              # }
+              # {
+              #   name = "Exec pipeline";
+              #   data = (builtins.toJSON {
+              #     labels.backend = "local";
+              #     platform = "linux/arm64";
+              #     steps.build = {
+              #       image = "bash";
+              #       commands = [
+              #         ''echo "This is the build step"''
+              #       ];
+              #     };
+              #   });
+              # }
+              {
+                name = "Pipeline from string";
                 data = ''
                   {
                     "labels": {
@@ -92,9 +98,7 @@
                         ],
                         "image": "bash",
                         "name": "Setup Attic",
-                        "secrets": [
-                          "attic_key"
-                        ]
+                        "secrets": [ "attic_key" ]
                       },
                       {
                         "commands": [
