@@ -98,7 +98,7 @@
                       },
                       {
                         "commands": [
-                          "nix build",
+                          "nix build '.#woodpecker-pipeline'",
                           "attic push lounge-rocks:nix-cache result"
                         ],
                         "image": "bash",
