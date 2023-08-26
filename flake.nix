@@ -37,7 +37,7 @@
                       name = "Setup Attic";
                       image = "bash";
                       commands = [
-                        "attic login lounge-rocks https://attic.lounge.rocks $ATTIC_KEY --set-default"
+                        "attic login nix-cache https://attic.lounge.rocks $ATTIC_KEY --set-default"
                       ];
                       secrets = [ "attic_key" ];
                     }
@@ -46,7 +46,7 @@
                       image = "bash";
                       commands = [
                         "nix build 'nixpkgs#hello'"
-                        "attic push lounge-rocks:lounge-rocks result"
+                        "attic push lounge-rocks:nix-cache result"
                       ];
                     }
                   ];
@@ -65,7 +65,6 @@
                   };
                 });
               }
-
               {
                 name = "Exec pipeline";
                 data = (builtins.toJSON {
@@ -100,7 +99,7 @@
                       {
                         "commands": [
                           "nix build 'nixpkgs#hello'",
-                          "attic push lounge-rocks:lounge-rocks result"
+                          "attic push lounge-rocks:nix-cache result"
                         ],
                         "image": "bash",
                         "name": "Build and push hello-world"
