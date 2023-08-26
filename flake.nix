@@ -98,7 +98,7 @@
                       },
                       {
                         "commands": [
-                          "nix build 'nixpkgs#hello'",
+                          "nix build 'nixpkgs#htop'",
                           "attic push lounge-rocks:nix-cache result"
                         ],
                         "image": "bash",
